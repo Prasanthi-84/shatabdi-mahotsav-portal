@@ -1,17 +1,21 @@
-import { motion } from "framer-motion";
+import { motion,useScroll,useTransform } from "framer-motion";
 import { Link } from "react-router-dom";
 import { ChevronDown, Award, BookOpen, Users, Globe, GraduationCap, Building2, MapPin, Calendar, Star } from "lucide-react";
 import CountdownTimer from "@/components/CountdownTimer";
 import TimeZoneClocks from "@/components/TimeZoneClocks";
 import SectionTitle from "@/components/SectionTitle";
 import campusHero from "@/assets/campus-hero.jpg";
-import founder from "@/assets/founder.jpg";
 import campusGate from "@/assets/campus-gate.jpg";
 import campusAerial from "@/assets/campus-aerial.jpg";
-import library from "@/assets/library.jpg";
+import library from "@/assets/library.webp";
 import engineering from "@/assets/engineering.jpg";
 import convocation from "@/assets/convocation.jpg";
-
+import schoolOfBusiness from "@/assets/School of Bussiness.jpg";
+import aucew from "@/assets/aucew.jpg";
+import department from "@/assets/deptarment.webp";
+import lawClg from "@/assets/lawclg.jpeg";
+import pharmacy from "@/assets/pharmacy-profile.jpg";
+import { useRef } from "react";
 const fadeUp = {
   hidden: { opacity: 0, y: 40 },
   visible: (i: number) => ({ opacity: 1, y: 0, transition: { delay: i * 0.15, duration: 0.6 } }),
@@ -23,16 +27,17 @@ const timelineEvents = [
   { year: "1931", event: "Headquarters moved to Waltair" },
   { year: "1938", event: "AU College of Engineering established" },
   { year: "1946", event: "Science and technology expansion" },
-  { year: "1956", event: "Andhra Pradesh formation boosted growth" },
-  { year: "1972", event: "School of Distance Education started" },
-  { year: "1986", event: "Recognized major research university by UGC" },
-  { year: "1994", event: "International collaborations began" },
+  { year: "1956", event: "Formation of Andhra Pradesh boosted growth" },
+  { year: "1972", event: "School of Distance Education established" },
+  { year: "1986", event: "Recognized as major research university by UGC" },
+  { year: "1994", event: "International collaborations started" },
   { year: "2003", event: "IT and modern technology programs introduced" },
-  { year: "2007", event: "Biotechnology research centers established" },
-  { year: "2016", event: "90 years celebration" },
+  { year: "2007", event: "Advanced biotechnology research centers" },
+  { year: "2016", event: "90 years of Andhra University celebrated" },
   { year: "2020", event: "Expansion into AI and Data Science" },
   { year: "2026", event: "Centenary Celebrations – Shatabdi Mahotsav", highlight: true },
 ];
+
 
 const stats = [
   { icon: Calendar, label: "Established", value: "1926" },
@@ -56,6 +61,11 @@ const campusImages = [
   { src: library, label: "AU Library" },
   { src: engineering, label: "Engineering College" },
   { src: convocation, label: "Convocation" },
+  { src: schoolOfBusiness, label: "School of Business" },
+  { src: aucew, label: "AU College of Engineering" },
+  { src: department, label: "Departments" },
+  { src: lawClg, label: "Law College" },
+  { src: pharmacy, label: "Pharmacy College" },
 ];
 
 const upcomingEvents = [
@@ -65,12 +75,21 @@ const upcomingEvents = [
 ];
 
 const Index = () => {
+     const ref = useRef(null);
+
+     const { scrollYProgress } = useScroll({
+         target: ref,
+         offset: ["start center", "end center"]
+      });
+
+const lineHeight = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
+const ballPosition = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
   return (
     <div className="overflow-x-hidden">
       {/* Hero Section */}
       <section className="relative min-h-screen flex items-center justify-center">
         <div className="absolute inset-0">
-          <img src={campusHero} alt="Andhra University Campus" className="w-full h-full object-cover" />
+          <img src="https://andhrauniversity.edu.in/img/gallery/455.jpeg" alt="Andhra University Campus" className="w-full h-full object-cover brightness-150" />
           <div className="absolute inset-0 bg-gradient-to-b from-navy/80 via-navy/70 to-navy/90" />
         </div>
         <div className="relative z-10 text-center px-4 max-w-4xl">
@@ -80,8 +99,8 @@ const Index = () => {
             transition={{ duration: 0.8 }}
             className="mb-6"
           >
-            <span className="inline-block px-6 py-2 rounded-full border border-gold/40 text-gold text-sm font-body tracking-widest uppercase">
-              Shatabdi Mahotsav
+            <span className="inline-block px-6 py-2 rounded-full border border-gold/100 text-gold text-lg font-body tracking-widest uppercase">
+              శతాబ్ది మహోత్సవం
             </span>
           </motion.div>
           <motion.h1
@@ -107,14 +126,14 @@ const Index = () => {
             className="flex items-center justify-center gap-6 mt-8 text-gold/80 font-display text-xl md:text-2xl tracking-[0.3em]"
           >
             <span>1926</span>
-            <div className="w-16 h-px bg-gold/40" />
+            <div className="w-16 h-px bg-gold/80" />
             <span>2026</span>
           </motion.div>
           <motion.p
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.9 }}
-            className="mt-6 text-gold-light/70 font-body text-sm md:text-base max-w-xl mx-auto"
+            className="mt-6 text-gold-light/80 font-body text-sm md:text-base max-w-xl mx-auto"
           >
             Celebrating a century of knowledge, innovation, and intellectual freedom.
           </motion.p>
@@ -183,10 +202,18 @@ const Index = () => {
             >
               <div className="relative">
                 <div className="absolute -inset-4 rounded-2xl border-2 border-gold/20 rotate-3" />
-                <img
-                  src={founder}
-                  alt="Sir C.R. Reddy"
-                  className="w-72 h-80 object-cover rounded-2xl shadow-gold relative z-10"
+               <motion.img
+                 src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2e/Sir_Reddy.jpg/500px-Sir_Reddy.jpg"
+                 alt="Sir C.R. Reddy"
+                 className="w-72 h-80 object-cover rounded-2xl shadow-gold relative z-10"
+                 initial={{ opacity: 0, x: 80 }}
+                 whileInView={{ opacity: 1, x: 0 }}
+                 animate={{ y: [0, -10, 0] }}
+                 viewport={{ once: true }}
+                 transition={{
+                     x: { duration: 1 },
+                     y: { duration: 4, repeat: Infinity, ease: "easeInOut" }
+                 }}
                 />
               </div>
             </motion.div>
@@ -227,39 +254,79 @@ const Index = () => {
       </section>
 
       {/* Timeline */}
-      <section className="py-20 bg-cream">
-        <div className="container mx-auto px-4">
-          <SectionTitle title="Our Journey" subtitle="A century of milestones and achievements" />
-          <div className="relative max-w-3xl mx-auto">
-            <div className="absolute left-1/2 top-0 bottom-0 w-0.5 bg-gold/30 -translate-x-1/2" />
-            {timelineEvents.map((event, i) => (
-              <motion.div
-                key={event.year}
-                initial={{ opacity: 0, x: i % 2 === 0 ? -40 : 40 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.1 }}
-                className={`relative flex items-center gap-6 mb-8 ${i % 2 === 0 ? "flex-row" : "flex-row-reverse"}`}
-              >
-                <div className={`flex-1 ${i % 2 === 0 ? "text-right" : "text-left"}`}>
-                  <div className={`inline-block p-4 rounded-xl ${event.highlight ? "bg-navy shadow-gold" : "glass-card"}`}>
-                    <p className={`font-display text-lg font-bold ${event.highlight ? "text-gold" : "text-navy"}`}>
-                      {event.year}
-                    </p>
-                    <p className={`font-body text-sm mt-1 ${event.highlight ? "text-gold-light/80" : "text-muted-foreground"}`}>
-                      {event.event}
-                    </p>
-                  </div>
+        <section ref={ref} className="py-24 bg-cream">
+
+      <div className="container mx-auto px-4">
+
+        <h2 className="text-4xl font-display text-center text-navy font-bold mb-16">
+          Our Journey
+        </h2>
+
+        <div className="relative max-w-4xl mx-auto">
+
+          {/* Timeline Background Line */}
+          <div className="absolute left-1/2 top-0 bottom-0 w-1 bg-gold/20 -translate-x-1/2"/>
+
+          {/* Animated Progress Line */}
+          <motion.div
+            style={{ height: lineHeight }}
+            className="absolute left-1/2 top-0 w-1 bg-gold -translate-x-1/2 origin-top"
+          />
+
+          {/* Moving Ball */}
+          <motion.div
+            style={{ top: ballPosition }}
+            className="absolute left-1/2 -translate-x-1/2 w-6 h-6 bg-gold rounded-full shadow-[0_0_15px_rgba(212,175,55,0.8)]"
+          />
+
+          {timelineEvents.map((event, i) => (
+            <motion.div
+              key={event.year}
+              initial={{ opacity: 0, x: i % 2 === 0 ? -80 : 80 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className={`relative flex items-center mb-20 gap-8 ${
+                i % 2 === 0 ? "flex-row" : "flex-row-reverse"
+              }`}
+            >
+
+              <div className={`flex-1 ${i % 2 === 0 ? "text-right" : "text-left"}`}>
+
+                <div
+                  className={`inline-block p-6 rounded-xl border ${
+                    event.highlight
+                      ? "bg-navy border-gold shadow-[0_0_25px_rgba(212,175,55,0.6)]"
+                      : "bg-white border-gold/20"
+                  }`}
+                >
+
+                  <h3
+                    className={`text-xl font-display font-bold ${
+                      event.highlight ? "text-gold" : "text-navy"
+                    }`}
+                  >
+                    {event.year}
+                  </h3>
+
+                  <p className="text-lg mt-2 text-gray-600">
+                    {event.event}
+                  </p>
+
                 </div>
-                <div className={`w-4 h-4 rounded-full border-2 shrink-0 z-10 ${
-                  event.highlight ? "bg-gold border-gold" : "bg-background border-gold/50"
-                }`} />
-                <div className="flex-1" />
-              </motion.div>
-            ))}
-          </div>
+
+              </div>
+
+              <div className="flex-1"></div>
+
+            </motion.div>
+          ))}
+
         </div>
-      </section>
+
+      </div>
+
+    </section>
 
       {/* Campus Showcase */}
       <section className="py-20 bg-background">

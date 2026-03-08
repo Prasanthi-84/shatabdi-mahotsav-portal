@@ -4,14 +4,15 @@ interface SectionTitleProps {
   title: string;
   subtitle?: string;
   light?: boolean;
+  className?: string;
 }
 
-const SectionTitle = ({ title, subtitle, light }: SectionTitleProps) => (
+const SectionTitle = ({ title, subtitle, light, className }: SectionTitleProps) => (
   <motion.div
     initial={{ opacity: 0, y: 30 }}
     whileInView={{ opacity: 1, y: 0 }}
     viewport={{ once: true }}
-    className="text-center mb-12"
+    className={`text-center mb-12 ${className ?? ""}`}
   >
     <h2 className={`font-display text-3xl md:text-5xl font-bold ${light ? "text-gold" : "text-navy"}`}>
       {title}

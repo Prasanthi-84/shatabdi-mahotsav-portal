@@ -40,8 +40,8 @@ const Navbar = () => {
         <Link to="/" className="flex items-center gap-3">
           <img src={auLogo} alt="Andhra University" className="h-10 md:h-14 object-contain" />
           <div className="hidden sm:block">
-            <p className="text-gold font-display text-sm md:text-base font-bold leading-tight">Andhra University</p>
-            <p className="text-gold-light text-xs">Shatabdi Mahotsav</p>
+            <p className="text-gold font-display text-sm md:text-base font-bold leading-tight"></p>
+            <p className="text-gold-light text-4xl">శతాబ్ది మహోత్సవం</p>
           </div>
         </Link>
 
