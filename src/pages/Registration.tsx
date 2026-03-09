@@ -110,10 +110,12 @@ const Registration = () => {
             className="mt-10 flex flex-wrap gap-4 justify-center"
           >
             <a
-              href="#register"
+              href={GOOGLE_FORM_SHARE}
+              target="_blank"
+              rel="noopener noreferrer"
               className="inline-flex items-center gap-2 px-8 py-3.5 bg-gradient-gold text-navy font-body font-bold rounded-full shadow-lg shadow-gold/30 hover:shadow-gold/50 hover:scale-105 transition-all duration-300"
             >
-              Register Now <ChevronRight size={18} />
+              Register Now <ExternalLink size={18} />
             </a>
             <a
               href="/declaratioform.pdf"
@@ -242,82 +244,36 @@ const Registration = () => {
       {/* gold divider */}
       <div className="gold-divider" />
 
-      {/* ── 4. GOOGLE FORM ────────────────────────────────── */}
-      <section id="register" className="py-20 bg-background scroll-mt-20">
-        <div className="container mx-auto px-4 max-w-4xl">
-          <SectionTitle
-            title="Official Registration Form"
-            subtitle="Fill in your details below to register for the Centenary Celebrations events"
-          />
-
+      {/* ── 4. FINAL CTA ─────────────────────────────────── */}
+      <section className="py-24 bg-background">
+        <div className="container mx-auto px-4 text-center">
           <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, scale: 0.9 }}
+            whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.7 }}
-            className="relative rounded-3xl overflow-hidden border border-gold/30 shadow-xl shadow-navy/10"
+            className="glass-card rounded-3xl p-12 border-2 border-gold/30 shadow-2xl max-w-2xl mx-auto"
           >
-            {/* Form header bar */}
-            <div className="bg-navy px-6 py-4 flex items-center justify-between">
-              <div className="flex items-center gap-3">
-                <div className="w-8 h-8 rounded-lg bg-gold/20 flex items-center justify-center">
-                  <FileText className="text-gold" size={16} />
-                </div>
-                <div>
-                  <p className="text-white font-body font-semibold text-sm">AU Centenary – Registration Form</p>
-                  <p className="text-gold/60 font-body text-xs">Powered by Google Forms</p>
-                </div>
-              </div>
-              <a
-                href={GOOGLE_FORM_SHARE}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-gold/15 text-gold font-body text-xs font-semibold hover:bg-gold/25 transition-colors"
-              >
-                <ExternalLink size={13} />
-                Open in Tab
-              </a>
-            </div>
-
-            {/* iFrame – the short link is used so the real form ID is resolved automatically */}
-            <div className="w-full bg-white">
-              <iframe
-                src={GOOGLE_FORM_SHARE}
-                width="100%"
-                height="900"
-                frameBorder="0"
-                marginHeight={0}
-                marginWidth={0}
-                title="AU Centenary Registration Form"
-                className="block w-full"
-                allow="camera; microphone"
-              >
-                Loading form…
-              </iframe>
-            </div>
-
-            {/* Fallback & Direct Link */}
-            <div className="bg-cream border-t border-gold/20 px-6 py-5 flex flex-col sm:flex-row items-center justify-between gap-4">
-              <div className="flex flex-col gap-2 w-full sm:w-auto">
-                <p className="text-[10px] uppercase tracking-wider font-bold text-navy/60">Form Link</p>
-                <div className="flex items-center gap-2 p-2 bg-white border border-gold/20 rounded-lg group hover:border-gold/40 transition-colors">
-                  <span className="text-[11px] font-mono text-gold break-all">{GOOGLE_FORM_SHARE}</span>
-                </div>
-              </div>
-              
-              <div className="flex flex-col sm:flex-row items-center gap-4 shrink-0">
-                <p className="text-[11px] font-body text-muted-foreground text-center sm:text-left max-w-[150px] leading-tight">
-                  Form not loading? Open directly:
-                </p>
-                <a
-                  href={GOOGLE_FORM_SHARE}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-6 py-2.5 bg-navy text-gold font-body font-semibold text-xs rounded-full hover:bg-navy-light transition-colors"
-                >
-                  Open in New Tab <ExternalLink size={14} />
-                </a>
-              </div>
+            <h2 className="font-display text-4xl text-navy font-bold mb-6">Ready to Participate?</h2>
+            <p className="font-body text-muted-foreground mb-10 text-lg">
+              Click the button below to open the official registration form in a new tab and secure your spot in the celebrations.
+            </p>
+            
+            <motion.a
+              href={GOOGLE_FORM_SHARE}
+              target="_blank"
+              rel="noopener noreferrer"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="inline-flex items-center gap-3 px-12 py-5 bg-navy text-gold font-body text-xl font-bold rounded-full shadow-xl shadow-navy/20 hover:bg-navy-light transition-all duration-300"
+            >
+              Register for Events <ExternalLink size={24} />
+            </motion.a>
+            
+            <div className="mt-8 pt-8 border-t border-gold/10">
+              <p className="text-xs font-body text-muted-foreground">
+                Official Google Form Link: <br/>
+                <span className="text-gold font-mono mt-1 block">{GOOGLE_FORM_SHARE}</span>
+              </p>
             </div>
           </motion.div>
         </div>
