@@ -296,25 +296,26 @@ const Registration = () => {
               </iframe>
             </div>
 
-            {/* Fallback */}
-            <div className="bg-cream border-t border-gold/20 px-6 py-5 flex flex-col items-center gap-4">
-              <div className="text-center">
-                <p className="text-sm font-body text-navy font-semibold mb-2">Direct Registration Link:</p>
-                <code className="px-4 py-2 bg-white border border-gold/20 rounded-lg text-gold font-mono text-xs break-all block">
-                  {GOOGLE_FORM_SHARE}
-                </code>
+            {/* Fallback & Direct Link */}
+            <div className="bg-cream border-t border-gold/20 px-6 py-5 flex flex-col sm:flex-row items-center justify-between gap-4">
+              <div className="flex flex-col gap-2 w-full sm:w-auto">
+                <p className="text-[10px] uppercase tracking-wider font-bold text-navy/60">Form Link</p>
+                <div className="flex items-center gap-2 p-2 bg-white border border-gold/20 rounded-lg group hover:border-gold/40 transition-colors">
+                  <span className="text-[11px] font-mono text-gold break-all">{GOOGLE_FORM_SHARE}</span>
+                </div>
               </div>
-              <div className="flex flex-col sm:flex-row items-center justify-between w-full gap-4 mt-2">
-                <p className="text-xs font-body text-muted-foreground text-center sm:text-left">
-                  Form not loading? Click the button to open it directly in a new tab.
+              
+              <div className="flex flex-col sm:flex-row items-center gap-4 shrink-0">
+                <p className="text-[11px] font-body text-muted-foreground text-center sm:text-left max-w-[150px] leading-tight">
+                  Form not loading? Open directly:
                 </p>
                 <a
                   href={GOOGLE_FORM_SHARE}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-6 py-3 bg-navy text-gold font-body font-semibold text-sm rounded-full hover:bg-navy-light transition-colors shrink-0"
+                  className="inline-flex items-center gap-2 px-6 py-2.5 bg-navy text-gold font-body font-semibold text-xs rounded-full hover:bg-navy-light transition-colors"
                 >
-                  Open Form in New Tab <ExternalLink size={15} />
+                  Open in New Tab <ExternalLink size={14} />
                 </a>
               </div>
             </div>
