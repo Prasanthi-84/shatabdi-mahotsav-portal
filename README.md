@@ -1,4 +1,4 @@
-# Welcome to your Lovable project
+# Andhra University Shatabdi Mahotsav
 
 ## Project info
 
