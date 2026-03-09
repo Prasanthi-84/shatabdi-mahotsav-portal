@@ -1,5 +1,3 @@
-
-
 import { motion } from "framer-motion";
 import SectionTitle from "@/components/SectionTitle";
 import { Link } from "react-router-dom";
@@ -9,6 +7,7 @@ import campusAerial from "@/assets/campus-aerial.jpg";
 import convocation from "@/assets/convocation.jpg";
 import library from "@/assets/library.webp";
 import engineering from "@/assets/engineering.jpg";
+
 
 const AboutFest = () => {
   return (
@@ -33,7 +32,7 @@ const AboutFest = () => {
           <div className="grid lg:grid-cols-2 gap-12 items-center max-w-6xl mx-auto">
 
             {/* Moving Images */}
-            <div className="grid grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6">
 
               <motion.img
                 src={campusGate}
@@ -70,7 +69,7 @@ const AboutFest = () => {
               <motion.img
                 src={engineering}
                 alt="Engineering"
-                className="w-full h-40 object-cover rounded-xl col-span-2"
+                className="w-full h-40 object-cover rounded-xl sm:col-span-2"
                 animate={{ y: [0, -12, 0] }}
                 transition={{ duration: 6, repeat: Infinity }}
               />
@@ -85,6 +84,33 @@ const AboutFest = () => {
               transition={{ duration: 0.8 }}
             >
 
+              {/* VC Highlight */}
+              <div className="flex items-center gap-4 mb-6 bg-cream p-4 rounded-xl shadow-sm border border-gold/20">
+
+                <motion.img
+                  src="https://www.andhrauniversity.edu.in/administration/Prof%20G%20P%20Raja%20Sekhar.jpeg"
+                  alt="Vice Chancellor"
+                  className="w-20 h-20 object-cover rounded-full border-2 border-gold"
+                  animate={{ y: [0, -8, 0] }}
+                  transition={{ duration: 4, repeat: Infinity }}
+                />
+
+                <div>
+                  <p className="text-sm text-muted-foreground">
+                    Presented under the leadership of
+                  </p>
+
+                  <h3 className="font-semibold text-navy">
+                    Prof. G. P. Raja Sekhar
+                  </h3>
+
+                  <p className="text-xs text-muted-foreground">
+                    Vice-Chancellor, Andhra University
+                  </p>
+                </div>
+
+              </div>
+
               <h2 className="font-display text-3xl md:text-4xl text-navy font-bold mb-6">
                 Centenary Celebrations <span className="text-gold">1926–2026</span>
               </h2>
@@ -92,24 +118,20 @@ const AboutFest = () => {
               <p className="font-body text-muted-foreground leading-relaxed mb-4">
                 Andhra University celebrates its historic milestone of completing
                 <span className="text-navy font-semibold"> 100 years of academic excellence</span>
-                through the grand Shatabdi Mahotsav. The celebration reflects
-                the university’s legacy of knowledge, innovation, and cultural heritage.
+                through the grand Shatabdi Mahotsav.
               </p>
 
               <p className="font-body text-muted-foreground leading-relaxed mb-4">
-                The festival is more than a cultural celebration. It provides a platform
-                for <span className="text-navy font-semibold">student collaboration,
-                academic exchange, and leadership development</span>. Students from
-                more than <span className="text-navy font-semibold">300 affiliated colleges</span>
-                participate in various activities that promote creativity,
-                teamwork, and innovation.
+                The festival provides a platform for
+                <span className="text-navy font-semibold"> student collaboration,
+                academic exchange, and leadership development</span>.
               </p>
 
               <p className="font-body text-muted-foreground leading-relaxed mb-6">
-                Through conferences, cultural performances, sports events,
-                and social initiatives, the Shatabdi Mahotsav strengthens
-                connections among students, faculty, alumni, and global partners
-                while celebrating the remarkable journey of Andhra University.
+                Students from more than
+                <span className="text-navy font-semibold"> 300 affiliated colleges</span>
+                participate in various cultural, academic, and social events
+                that celebrate the spirit of Andhra University.
               </p>
 
               <Link

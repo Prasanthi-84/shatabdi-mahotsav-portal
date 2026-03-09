@@ -107,7 +107,7 @@ const ballPosition = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3, duration: 0.8 }}
-            className="font-display text-5xl md:text-7xl lg:text-8xl font-bold text-gold mb-4"
+            className="font-display text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-bold text-gold mb-4"
           >
             Andhra University
           </motion.h1>
@@ -123,10 +123,10 @@ const ballPosition = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.7 }}
-            className="flex items-center justify-center gap-6 mt-8 text-gold/80 font-display text-xl md:text-2xl tracking-[0.3em]"
+            className="flex items-center justify-center gap-4 sm:gap-6 mt-8 text-gold/80 font-display text-lg sm:text-xl md:text-2xl tracking-[0.2em] sm:tracking-[0.3em]"
           >
             <span>1926</span>
-            <div className="w-16 h-px bg-gold/80" />
+            <div className="w-12 sm:w-16 h-px bg-gold/80" />
             <span>2026</span>
           </motion.div>
           <motion.p
@@ -229,11 +229,12 @@ const ballPosition = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
             subtitle="Established on 26 April 1926, one of the oldest and most prestigious universities in India."
             light
           />
-          <p className="text-center text-gold-light/70 font-body max-w-3xl mx-auto mb-12">
-            Located in Visakhapatnam, Andhra University has played a major role in shaping education, research,
-            and innovation in South India. Known for Engineering, Marine Sciences, Geology, Pharmacy, and Management.
+          <p className="text-center text-gold-light/80 font-body text-sm md:text-base max-w-3xl mx-auto mb-16 leading-relaxed">
+            Located in the beautiful city of <span className="text-gold font-semibold underline decoration-gold/30">Visakhapatnam</span>, 
+            Andhra University has played a major role in shaping education, research,
+            and innovation in South India for a century.
           </p>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto">
             {stats.map((stat, i) => (
               <motion.div
                 key={stat.label}
@@ -242,11 +243,11 @@ const ballPosition = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true }}
-                className="text-center p-6 rounded-xl border border-gold/20 bg-navy-light/50"
+                className="text-center p-6 rounded-xl border border-gold/20 bg-navy-light/50 flex flex-col items-center justify-center min-h-[160px]"
               >
-                <stat.icon className="mx-auto mb-3 text-gold" size={28} />
-                <p className="font-display text-2xl text-gold font-bold">{stat.value}</p>
-                <p className="text-gold-light/60 text-xs font-body mt-1">{stat.label}</p>
+                <stat.icon className="mb-3 text-gold shrink-0" size={28} />
+                <p className="font-display text-xl sm:text-2xl text-gold font-bold break-words w-full px-2">{stat.value}</p>
+                <p className="text-gold-light/60 text-xs font-body mt-1 uppercase tracking-wider">{stat.label}</p>
               </motion.div>
             ))}
           </div>
@@ -265,51 +266,51 @@ const ballPosition = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
         <div className="relative max-w-4xl mx-auto">
 
           {/* Timeline Background Line */}
-          <div className="absolute left-1/2 top-0 bottom-0 w-1 bg-gold/20 -translate-x-1/2"/>
+          <div className="absolute left-4 md:left-1/2 top-0 bottom-0 w-1 bg-gold/20 -translate-x-1/2"/>
 
           {/* Animated Progress Line */}
           <motion.div
             style={{ height: lineHeight }}
-            className="absolute left-1/2 top-0 w-1 bg-gold -translate-x-1/2 origin-top"
+            className="absolute left-4 md:left-1/2 top-0 w-1 bg-gold -translate-x-1/2 origin-top"
           />
 
           {/* Moving Ball */}
           <motion.div
             style={{ top: ballPosition }}
-            className="absolute left-1/2 -translate-x-1/2 w-6 h-6 bg-gold rounded-full shadow-[0_0_15px_rgba(212,175,55,0.8)]"
+            className="absolute left-4 md:left-1/2 -translate-x-1/2 w-6 h-6 bg-gold rounded-full shadow-[0_0_15px_rgba(212,175,55,0.8)] z-10"
           />
 
           {timelineEvents.map((event, i) => (
             <motion.div
               key={event.year}
-              initial={{ opacity: 0, x: i % 2 === 0 ? -80 : 80 }}
+              initial={{ opacity: 0, x: i % 2 === 0 ? -50 : 50 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
-              className={`relative flex items-center mb-20 gap-8 ${
-                i % 2 === 0 ? "flex-row" : "flex-row-reverse"
-              }`}
+              className={`relative flex items-center mb-16 md:mb-24 gap-8 ${
+                i % 2 === 0 ? "md:flex-row" : "md:flex-row-reverse"
+              } flex-row`}
             >
 
-              <div className={`flex-1 ${i % 2 === 0 ? "text-right" : "text-left"}`}>
+              <div className={`flex-1 ${i % 2 === 0 ? "md:text-right text-left" : "text-left"} ml-12 md:ml-0`}>
 
                 <div
-                  className={`inline-block p-6 rounded-xl border ${
+                  className={`inline-block p-5 md:p-6 rounded-xl border w-full md:w-auto ${
                     event.highlight
-                      ? "bg-navy border-gold shadow-[0_0_25px_rgba(212,175,55,0.6)]"
-                      : "bg-white border-gold/20"
+                      ? "bg-navy border-gold shadow-[0_0_25px_rgba(212,175,55,0.4)]"
+                      : "bg-white border-gold/20 shadow-sm"
                   }`}
                 >
 
                   <h3
-                    className={`text-xl font-display font-bold ${
+                    className={`text-xl md:text-2xl font-display font-bold ${
                       event.highlight ? "text-gold" : "text-navy"
                     }`}
                   >
                     {event.year}
                   </h3>
 
-                  <p className="text-lg mt-2 text-gray-600">
+                  <p className="text-base md:text-lg mt-2 text-gray-600 font-body">
                     {event.event}
                   </p>
 
@@ -317,7 +318,7 @@ const ballPosition = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
 
               </div>
 
-              <div className="flex-1"></div>
+              <div className="hidden md:block md:flex-1"></div>
 
             </motion.div>
           ))}
