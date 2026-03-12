@@ -212,7 +212,7 @@ const Events = () => {
                 onChange={(e) => setSearch(e.target.value)}
                 className="w-full pl-9 pr-4 py-2.5 rounded-full border border-gold/20 bg-background text-sm font-body focus:outline-none focus:ring-2 focus:ring-gold/40 focus:shadow-gold transition-shadow text-foreground"
               />
-            </motion.div>
+            </div>
 
             {/* Register Button */}
             <motion.div whileHover={{ scale: 1.06, y: -2 }} whileTap={{ scale: 0.95 }}>
