@@ -47,9 +47,9 @@ const CornerLotus = ({ position }: { position: string }) => (
 );
 
 const Events = () => {
+  const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState("all");
   const [search, setSearch] = useState("");
-  const [selectedEvent, setSelectedEvent] = useState<EventItem | null>(null);
 
   const filteredEvents = useMemo(() => {
     return eventsData.filter((e) => {
