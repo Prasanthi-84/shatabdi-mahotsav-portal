@@ -2,19 +2,8 @@ import { useState, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import SectionTitle from "@/components/SectionTitle";
 import { Search, Calendar, MapPin, User, Users, ExternalLink, Sparkles } from "lucide-react";
-import { Link } from "react-router-dom";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
-
-interface EventItem {
-  id: number;
-  date: string;
-  month: "march" | "april" | "planned";
-  title: string;
-  convenor: string;
-  venue: string;
-  chiefGuest?: string;
-  description: string;
-}
+import { Link, useNavigate } from "react-router-dom";
+import { eventsData, type EventItem } from "@/data/eventsData";
 
 const eventsData: EventItem[] = [
   // March 2026
