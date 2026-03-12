@@ -1,7 +1,7 @@
 import { useState, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import SectionTitle from "@/components/SectionTitle";
-import { Search, Calendar, MapPin, User, Users, X, ExternalLink } from "lucide-react";
+import { Search, Calendar, MapPin, User, Users, ExternalLink, Sparkles } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 
@@ -53,20 +53,37 @@ const filterTabs = [
   { key: "planned", label: "Planned Events" },
 ];
 
-// Floating lotus petal component
-const FloatingLotus = ({ delay, x, size }: { delay: number; x: string; size: number }) => (
+// Lotus SVG component for reuse
+const LotusSVG = ({ size = 64, className = "" }: { size?: number; className?: string }) => (
+  <svg width={size} height={size} viewBox="0 0 64 64" fill="none" className={className}>
+    <ellipse cx="32" cy="40" rx="18" ry="22" fill="hsl(43 72% 52% / 0.4)" />
+    <ellipse cx="32" cy="36" rx="12" ry="16" fill="hsl(43 60% 70% / 0.3)" />
+    <ellipse cx="32" cy="32" rx="6" ry="10" fill="hsl(40 30% 95% / 0.5)" />
+  </svg>
+);
+
+// Floating lotus particle for hero/modal backgrounds
+const FloatingLotus = ({ delay, x, size, duration = 20 }: { delay: number; x: string; size: number; duration?: number }) => (
   <motion.div
-    className="absolute pointer-events-none opacity-[0.07]"
-    style={{ left: x, top: "-5%" }}
-    animate={{ y: ["0vh", "110vh"], rotate: [0, 360], scale: [1, 0.7, 1] }}
-    transition={{ duration: 18 + delay * 2, repeat: Infinity, delay, ease: "linear" }}
+    className="absolute pointer-events-none"
+    style={{ left: x, top: "-8%" }}
+    animate={{
+      y: ["0vh", "115vh"],
+      rotate: [0, 180 + Math.random() * 180],
+      opacity: [0, 0.08, 0.12, 0.06, 0],
+      scale: [0.8, 1, 0.9, 0.7],
+    }}
+    transition={{ duration: duration, repeat: Infinity, delay, ease: "linear" }}
   >
-    <svg width={size} height={size} viewBox="0 0 64 64" fill="none">
-      <ellipse cx="32" cy="40" rx="18" ry="22" fill="hsl(43 72% 52%)" />
-      <ellipse cx="32" cy="36" rx="12" ry="16" fill="hsl(43 60% 70%)" />
-      <ellipse cx="32" cy="32" rx="6" ry="10" fill="hsl(40 30% 95%)" />
-    </svg>
+    <LotusSVG size={size} />
   </motion.div>
+);
+
+// Corner lotus accent for parchment containers
+const CornerLotus = ({ position }: { position: string }) => (
+  <div className={`absolute ${position} opacity-[0.08] pointer-events-none`}>
+    <LotusSVG size={44} />
+  </div>
 );
 
 const Events = () => {
@@ -86,51 +103,102 @@ const Events = () => {
   }, [activeTab, search]);
 
   return (
-    <div className="pt-20">
-      {/* Hero Section */}
-      <section className="relative py-24 bg-navy overflow-hidden">
-        {/* Floating lotuses */}
-        <FloatingLotus delay={0} x="10%" size={48} />
-        <FloatingLotus delay={4} x="30%" size={36} />
-        <FloatingLotus delay={2} x="55%" size={52} />
-        <FloatingLotus delay={6} x="75%" size={40} />
-        <FloatingLotus delay={8} x="90%" size={32} />
+    <motion.div
+      className="pt-20"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.6 }}
+    >
+      {/* ═══════════ HERO SECTION ═══════════ */}
+      <section className="relative py-28 md:py-36 bg-navy overflow-hidden">
+        {/* Multi-layer floating lotuses */}
+        <FloatingLotus delay={0} x="8%" size={56} duration={22} />
+        <FloatingLotus delay={3} x="22%" size={38} duration={26} />
+        <FloatingLotus delay={5} x="42%" size={62} duration={19} />
+        <FloatingLotus delay={7} x="65%" size={44} duration={24} />
+        <FloatingLotus delay={2} x="80%" size={50} duration={21} />
+        <FloatingLotus delay={9} x="92%" size={34} duration={28} />
+        <FloatingLotus delay={4} x="50%" size={28} duration={30} />
+
+        {/* Gradient overlay */}
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-primary/30 pointer-events-none" />
 
         <div className="container mx-auto px-4 relative z-10">
-          <SectionTitle
-            title="Events – Shatabdi Mahotsav 2026"
-            subtitle="March & April 2026 • Celebrating 100 Years of Excellence"
-            light
-          />
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.6 }}
-            className="text-center font-display text-lg tracking-[0.3em] text-gold-light/60 mt-2"
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            className="text-center"
           >
-            1926 – 2026
+            <h1
+              className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-wide text-gold mb-4"
+              style={{ fontFamily: "'Cinzel', 'Playfair Display', serif" }}
+            >
+              Events
+            </h1>
+            <motion.div
+              className="gold-divider w-40 mx-auto mb-6"
+              initial={{ scaleX: 0 }}
+              animate={{ scaleX: 1 }}
+              transition={{ delay: 0.5, duration: 0.8, ease: "easeOut" }}
+              style={{ transformOrigin: "center" }}
+            />
+            <h2 className="font-display text-xl md:text-2xl text-gold-light/90 font-medium tracking-wider mb-3">
+              Shatabdi Mahotsav 2026
+            </h2>
+            <p className="font-body text-sm md:text-base text-gold-light/60 tracking-widest">
+              March & April 2026 • Celebrating 100 Years of Excellence
+            </p>
+          </motion.div>
+
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.9, duration: 0.6 }}
+            className="text-center mt-6"
+            style={{ fontFamily: "'Cinzel', serif" }}
+          >
+            <span className="text-lg md:text-xl tracking-[0.5em] text-gold/40 font-medium">
+              1926 — 2026
+            </span>
           </motion.p>
         </div>
       </section>
 
-      {/* Sticky Filters */}
-      <div className="sticky top-20 z-30 bg-cream/95 backdrop-blur-md border-b border-gold/20 shadow-sm">
+      {/* ═══════════ STICKY FILTERS ═══════════ */}
+      <motion.div
+        className="sticky top-20 z-30 bg-cream/95 backdrop-blur-md border-b border-gold/20 shadow-sm"
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.3, duration: 0.5 }}
+      >
         <div className="container mx-auto px-4 py-4">
           <div className="flex flex-col md:flex-row items-center gap-4">
             {/* Tabs */}
             <div className="flex flex-wrap gap-2">
               {filterTabs.map((tab) => (
-                <button
+                <motion.button
                   key={tab.key}
                   onClick={() => setActiveTab(tab.key)}
-                  className={`px-4 py-2 rounded-full text-sm font-body font-medium transition-all duration-300 ${
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.97 }}
+                  className={`relative px-5 py-2.5 rounded-full text-sm font-body font-semibold transition-all duration-300 ${
                     activeTab === tab.key
                       ? "bg-navy text-gold shadow-gold"
-                      : "bg-background text-muted-foreground hover:bg-gold/10 border border-gold/20"
+                      : "bg-background text-muted-foreground hover:bg-accent/10 border border-gold/20"
                   }`}
+                  style={activeTab === tab.key ? { fontFamily: "'Cinzel', serif", letterSpacing: "0.05em" } : {}}
                 >
                   {tab.label}
-                </button>
+                  {activeTab === tab.key && (
+                    <motion.div
+                      className="absolute -bottom-0.5 left-1/2 h-0.5 bg-gold rounded-full"
+                      layoutId="activeTab"
+                      style={{ width: "60%", x: "-50%" }}
+                      transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                    />
+                  )}
+                </motion.button>
               ))}
             </div>
 
@@ -142,127 +210,230 @@ const Events = () => {
                 placeholder="Search events or venues..."
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
-                className="w-full pl-9 pr-4 py-2 rounded-full border border-gold/20 bg-background text-sm font-body focus:outline-none focus:ring-2 focus:ring-gold/40 text-foreground"
+                className="w-full pl-9 pr-4 py-2.5 rounded-full border border-gold/20 bg-background text-sm font-body focus:outline-none focus:ring-2 focus:ring-gold/40 focus:shadow-gold transition-shadow text-foreground"
               />
             </div>
 
             {/* Register Button */}
-            <Link
-              to="/registration"
-              className="px-6 py-2 rounded-full bg-navy text-gold font-body font-semibold text-sm hover:bg-navy-light transition-colors whitespace-nowrap"
-            >
-              Register Now
-            </Link>
+            <motion.div whileHover={{ scale: 1.06, y: -2 }} whileTap={{ scale: 0.95 }}>
+              <Link
+                to="/registration"
+                className="inline-flex items-center gap-2 px-7 py-2.5 rounded-full bg-navy text-gold font-body font-bold text-sm hover:bg-navy-light transition-colors shadow-gold whitespace-nowrap"
+                style={{ fontFamily: "'Cinzel', serif", letterSpacing: "0.08em" }}
+              >
+                <Sparkles size={14} />
+                Register Now
+              </Link>
+            </motion.div>
           </div>
         </div>
-      </div>
+      </motion.div>
 
-      {/* Events Grid */}
-      <section className="py-16 bg-cream">
+      {/* ═══════════ EVENTS GRID ═══════════ */}
+      <section className="py-20 bg-cream">
         <div className="container mx-auto px-4">
           {/* Parchment container */}
-          <div className="relative max-w-6xl mx-auto p-6 md:p-10 rounded-2xl border border-gold/20 bg-background/80 shadow-gold">
+          <motion.div
+            className="relative max-w-6xl mx-auto p-6 md:p-12 rounded-2xl border border-gold/20 bg-background/80 shadow-gold"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+          >
             {/* Corner lotus accents */}
-            {["top-3 left-3", "top-3 right-3 rotate-90", "bottom-3 left-3 -rotate-90", "bottom-3 right-3 rotate-180"].map((pos, i) => (
-              <div key={i} className={`absolute ${pos} opacity-10 pointer-events-none`}>
-                <svg width="40" height="40" viewBox="0 0 64 64" fill="none">
-                  <ellipse cx="20" cy="30" rx="14" ry="18" fill="hsl(43 72% 52%)" />
-                  <ellipse cx="20" cy="26" rx="8" ry="12" fill="hsl(43 60% 70%)" />
-                </svg>
-              </div>
-            ))}
+            <CornerLotus position="top-2 left-2" />
+            <CornerLotus position="top-2 right-2 rotate-90" />
+            <CornerLotus position="bottom-2 left-2 -rotate-90" />
+            <CornerLotus position="bottom-2 right-2 rotate-180" />
+
+            {/* Section header inside parchment */}
+            <div className="text-center mb-10">
+              <h2
+                className="text-2xl md:text-3xl font-bold text-navy tracking-wide"
+                style={{ fontFamily: "'Cinzel', 'Playfair Display', serif" }}
+              >
+                Centenary Celebration Events
+              </h2>
+              <div className="gold-divider w-24 mx-auto mt-4" />
+              <p className="text-sm text-muted-foreground font-body mt-3">
+                {filteredEvents.length} event{filteredEvents.length !== 1 ? "s" : ""} found
+              </p>
+            </div>
 
             {filteredEvents.length === 0 ? (
-              <p className="text-center text-muted-foreground font-body py-12">No events match your search.</p>
+              <p className="text-center text-muted-foreground font-body py-16 text-lg">
+                No events match your search.
+              </p>
             ) : (
-              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                {filteredEvents.map((evt, i) => (
-                  <motion.div
-                    key={evt.id}
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, margin: "-40px" }}
-                    transition={{ delay: (i % 6) * 0.08, duration: 0.5 }}
-                    whileHover={{ scale: 1.03, boxShadow: "0 8px 32px hsl(43 72% 52% / 0.25)" }}
-                    onClick={() => setSelectedEvent(evt)}
-                    className="cursor-pointer rounded-xl border border-gold/15 bg-card p-5 flex flex-col gap-3 transition-shadow hover:shadow-gold group"
-                  >
-                    {/* Date */}
-                    <span className="font-display text-lg font-bold text-gold">{evt.date}</span>
+              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+                <AnimatePresence mode="popLayout">
+                  {filteredEvents.map((evt, i) => (
+                    <motion.div
+                      key={evt.id}
+                      layout
+                      initial={{ opacity: 0, y: 40, rotate: -1 }}
+                      whileInView={{ opacity: 1, y: 0, rotate: 0 }}
+                      exit={{ opacity: 0, y: -20, scale: 0.95 }}
+                      viewport={{ once: true, margin: "-30px" }}
+                      transition={{ delay: (i % 6) * 0.07, duration: 0.55, ease: "easeOut" }}
+                      whileHover={{
+                        y: -12,
+                        boxShadow: "0 12px 40px hsl(43 72% 52% / 0.3)",
+                        borderColor: "hsl(43 72% 52% / 0.5)",
+                      }}
+                      onClick={() => setSelectedEvent(evt)}
+                      className="cursor-pointer rounded-xl border border-gold/15 bg-card p-6 flex flex-col gap-3 transition-all group relative overflow-hidden"
+                    >
+                      {/* Subtle hover lotus bloom */}
+                      <motion.div
+                        className="absolute -top-3 -right-3 opacity-0 group-hover:opacity-[0.06] transition-opacity duration-500 pointer-events-none"
+                      >
+                        <LotusSVG size={80} />
+                      </motion.div>
 
-                    {/* Title */}
-                    <h3 className="font-display text-base font-bold text-navy leading-snug group-hover:text-navy-light transition-colors">
-                      {evt.title}
-                    </h3>
+                      {/* Date */}
+                      <motion.span
+                        className="text-xl font-bold text-gold tracking-wider"
+                        style={{ fontFamily: "'Cinzel', serif" }}
+                        whileHover={{ scale: 1.05 }}
+                      >
+                        {evt.date}
+                      </motion.span>
 
-                    {/* Meta */}
-                    <div className="space-y-1 text-xs font-body text-muted-foreground">
-                      <p className="flex items-center gap-1.5"><User size={12} className="text-gold" />{evt.convenor}</p>
-                      <p className="flex items-center gap-1.5"><MapPin size={12} className="text-gold" />{evt.venue}</p>
-                      {evt.chiefGuest && (
-                        <p className="flex items-center gap-1.5"><Users size={12} className="text-gold" />{evt.chiefGuest}</p>
-                      )}
-                    </div>
+                      {/* Title */}
+                      <h3 className="font-display text-lg font-bold text-navy leading-snug group-hover:text-navy-light transition-colors">
+                        {evt.title}
+                      </h3>
 
-                    {/* Description */}
-                    <p className="text-xs font-body text-muted-foreground line-clamp-2 mt-auto">{evt.description}</p>
+                      {/* Meta */}
+                      <div className="space-y-1.5 text-xs font-body text-muted-foreground">
+                        <p className="flex items-center gap-1.5">
+                          <User size={12} className="text-gold shrink-0" />
+                          <span className="truncate">{evt.convenor}</span>
+                        </p>
+                        <p className="flex items-center gap-1.5">
+                          <MapPin size={12} className="text-gold shrink-0" />
+                          {evt.venue}
+                        </p>
+                        {evt.chiefGuest && (
+                          <p className="flex items-center gap-1.5">
+                            <Users size={12} className="text-gold shrink-0" />
+                            {evt.chiefGuest}
+                          </p>
+                        )}
+                      </div>
 
-                    <span className="text-xs font-body font-semibold text-gold flex items-center gap-1 mt-1">
-                      Learn More <ExternalLink size={12} />
-                    </span>
-                  </motion.div>
-                ))}
+                      {/* Description */}
+                      <p className="text-xs font-body text-muted-foreground line-clamp-2 mt-auto leading-relaxed">
+                        {evt.description}
+                      </p>
+
+                      {/* Learn More */}
+                      <span className="inline-flex items-center gap-1.5 text-xs font-body font-bold text-gold mt-2 group-hover:tracking-wider transition-all relative">
+                        Learn More
+                        <ExternalLink size={12} />
+                        <motion.span
+                          className="absolute -bottom-0.5 left-0 h-px bg-gold"
+                          initial={{ width: 0 }}
+                          whileInView={{ width: "100%" }}
+                          transition={{ delay: 0.3, duration: 0.4 }}
+                        />
+                      </span>
+                    </motion.div>
+                  ))}
+                </AnimatePresence>
               </div>
             )}
-          </div>
+          </motion.div>
         </div>
       </section>
 
-      {/* Event Detail Modal */}
-      <Dialog open={!!selectedEvent} onOpenChange={(open) => !open && setSelectedEvent(null)}>
-        <DialogContent className="max-w-lg border-gold/30 bg-cream rounded-2xl">
-          {/* Lotus frame top accent */}
-          <div className="absolute -top-4 left-1/2 -translate-x-1/2 opacity-20 pointer-events-none">
-            <svg width="80" height="40" viewBox="0 0 80 40" fill="none">
-              <ellipse cx="40" cy="30" rx="30" ry="20" fill="hsl(43 72% 52%)" />
-              <ellipse cx="40" cy="26" rx="18" ry="14" fill="hsl(43 60% 70%)" />
-              <ellipse cx="40" cy="22" rx="8" ry="8" fill="hsl(40 30% 95%)" />
-            </svg>
-          </div>
+      {/* ═══════════ EVENT DETAIL MODAL ═══════════ */}
+      <AnimatePresence>
+        {selectedEvent && (
+          <Dialog open={!!selectedEvent} onOpenChange={(open) => !open && setSelectedEvent(null)}>
+            <DialogContent className="max-w-lg border-gold/30 bg-cream rounded-2xl overflow-hidden">
+              {/* Floating lotus accents in modal */}
+              <div className="absolute inset-0 pointer-events-none overflow-hidden">
+                <motion.div
+                  className="absolute top-4 right-4 opacity-[0.05]"
+                  animate={{ rotate: [0, 360], y: [0, -8, 0] }}
+                  transition={{ duration: 20, repeat: Infinity }}
+                >
+                  <LotusSVG size={90} />
+                </motion.div>
+                <motion.div
+                  className="absolute bottom-4 left-4 opacity-[0.04]"
+                  animate={{ rotate: [0, -180], y: [0, 6, 0] }}
+                  transition={{ duration: 16, repeat: Infinity }}
+                >
+                  <LotusSVG size={70} />
+                </motion.div>
+              </div>
 
-          <DialogHeader>
-            <DialogTitle className="font-display text-2xl text-navy pr-6">
-              {selectedEvent?.title}
-            </DialogTitle>
-            <DialogDescription className="font-display text-lg text-gold font-semibold">
-              {selectedEvent?.date}
-            </DialogDescription>
-          </DialogHeader>
+              {/* Top accent */}
+              <div className="absolute -top-3 left-1/2 -translate-x-1/2 opacity-15 pointer-events-none">
+                <LotusSVG size={80} />
+              </div>
 
-          <div className="space-y-4 mt-2">
-            <div className="space-y-2 text-sm font-body">
-              <p className="flex items-center gap-2"><User size={14} className="text-gold" /><span className="text-muted-foreground">Convenor:</span> <span className="text-foreground font-medium">{selectedEvent?.convenor}</span></p>
-              <p className="flex items-center gap-2"><MapPin size={14} className="text-gold" /><span className="text-muted-foreground">Venue:</span> <span className="text-foreground font-medium">{selectedEvent?.venue}</span></p>
-              {selectedEvent?.chiefGuest && (
-                <p className="flex items-center gap-2"><Users size={14} className="text-gold" /><span className="text-muted-foreground">Chief Guest:</span> <span className="text-foreground font-medium">{selectedEvent?.chiefGuest}</span></p>
-              )}
-            </div>
+              <DialogHeader className="relative z-10">
+                <DialogTitle
+                  className="text-2xl md:text-3xl text-navy pr-6 tracking-wide"
+                  style={{ fontFamily: "'Cinzel', 'Playfair Display', serif" }}
+                >
+                  {selectedEvent.title}
+                </DialogTitle>
+                <DialogDescription
+                  className="text-lg font-bold text-gold tracking-widest"
+                  style={{ fontFamily: "'Cinzel', serif" }}
+                >
+                  {selectedEvent.date}
+                </DialogDescription>
+              </DialogHeader>
 
-            <div className="gold-divider w-full" />
+              <div className="space-y-5 mt-3 relative z-10">
+                <div className="space-y-2.5 text-sm font-body">
+                  <p className="flex items-center gap-2">
+                    <User size={14} className="text-gold" />
+                    <span className="text-muted-foreground">Convenor:</span>
+                    <span className="text-foreground font-semibold">{selectedEvent.convenor}</span>
+                  </p>
+                  <p className="flex items-center gap-2">
+                    <MapPin size={14} className="text-gold" />
+                    <span className="text-muted-foreground">Venue:</span>
+                    <span className="text-foreground font-semibold">{selectedEvent.venue}</span>
+                  </p>
+                  {selectedEvent.chiefGuest && (
+                    <p className="flex items-center gap-2">
+                      <Users size={14} className="text-gold" />
+                      <span className="text-muted-foreground">Chief Guest:</span>
+                      <span className="text-foreground font-semibold">{selectedEvent.chiefGuest}</span>
+                    </p>
+                  )}
+                </div>
 
-            <p className="font-body text-foreground leading-relaxed">{selectedEvent?.description}</p>
+                <div className="gold-divider w-full" />
 
-            <Link
-              to="/registration"
-              className="inline-flex items-center gap-2 px-8 py-3 bg-navy text-gold font-body font-semibold rounded-full hover:bg-navy-light transition-colors w-full justify-center mt-2"
-            >
-              <Calendar size={16} />
-              Register for this Event
-            </Link>
-          </div>
-        </DialogContent>
-      </Dialog>
-    </div>
+                <p className="font-body text-foreground leading-relaxed text-base">
+                  {selectedEvent.description}
+                </p>
+
+                <motion.div whileHover={{ scale: 1.03, y: -2 }} whileTap={{ scale: 0.97 }}>
+                  <Link
+                    to="/registration"
+                    className="flex items-center justify-center gap-2.5 px-8 py-3.5 bg-navy text-gold font-bold rounded-full hover:bg-navy-light transition-all w-full mt-2 shadow-gold"
+                    style={{ fontFamily: "'Cinzel', serif", letterSpacing: "0.1em" }}
+                  >
+                    <Calendar size={16} />
+                    Register for this Event
+                  </Link>
+                </motion.div>
+              </div>
+            </DialogContent>
+          </Dialog>
+        )}
+      </AnimatePresence>
+    </motion.div>
   );
 };
 
