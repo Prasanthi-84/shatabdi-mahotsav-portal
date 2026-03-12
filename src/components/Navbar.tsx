@@ -3,7 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import auLogo from "@/assets/au-logo.png";
-import auCentenary from "@/assets/au-centenary.jpeg";
+import auCentenary from "@/assets/og-image.jpeg";
 
 const navLinks = [
   { name: "Home", path: "/" },
@@ -31,9 +31,8 @@ const Navbar = () => {
     <motion.nav
       initial={{ y: -100 }}
       animate={{ y: 0 }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled ? "bg-navy/95 backdrop-blur-md shadow-lg" : "bg-navy/80 backdrop-blur-sm"
-      }`}
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? "bg-navy/95 backdrop-blur-md shadow-lg" : "bg-navy/80 backdrop-blur-sm"
+        }`}
     >
       <div className="container mx-auto px-4 flex items-center justify-between h-16 md:h-20">
         {/* Left: AU Logo */}
@@ -51,11 +50,10 @@ const Navbar = () => {
             <Link
               key={link.path}
               to={link.path}
-              className={`px-4 py-2 rounded-full text-sm font-body font-medium transition-all duration-300 ${
-                location.pathname === link.path
+              className={`px-4 py-2 rounded-full text-sm font-body font-medium transition-all duration-300 ${location.pathname === link.path
                   ? "bg-gold text-navy"
                   : "text-gold-light hover:text-gold hover:bg-gold/10"
-              }`}
+                }`}
             >
               {link.name}
             </Link>
@@ -88,11 +86,10 @@ const Navbar = () => {
                 <Link
                   key={link.path}
                   to={link.path}
-                  className={`px-4 py-3 rounded-lg text-sm font-body font-medium transition-all ${
-                    location.pathname === link.path
+                  className={`px-4 py-3 rounded-lg text-sm font-body font-medium transition-all ${location.pathname === link.path
                       ? "bg-gold text-navy"
                       : "text-gold-light hover:bg-gold/10"
-                  }`}
+                    }`}
                 >
                   {link.name}
                 </Link>

@@ -8,7 +8,7 @@ import Footer from "@/components/Footer";
 import Index from "./pages/Index";
 import AboutFest from "./pages/AboutFest";
 import Events from "./pages/Events";
-import EventDetails from "./pages/EventDetails";
+import EventDetail from "./pages/EventDetail";
 import OrganizingTeam from "./pages/OrganizingTeam";
 import Registration from "./pages/Registration";
 import Contact from "./pages/Contact";
@@ -27,7 +27,7 @@ const App = () => (
           <Route path="/" element={<Index />} />
           <Route path="/about-fest" element={<AboutFest />} />
           <Route path="/events" element={<Events />} />
-          <Route path="/events/:slug" element={<EventDetails />} />
+          <Route path="/events/:id" element={<EventDetail />} />
           <Route path="/organizing-team" element={<OrganizingTeam />} />
           <Route path="/registration" element={<Registration />} />
           <Route path="/contact" element={<Contact />} />

@@ -16,6 +16,8 @@ export default {
       fontFamily: {
         display: ['"Playfair Display"', 'serif'],
         body: ['"Inter"', 'sans-serif'],
+        decorative: ['"Cinzel"', 'serif'],
+        classic: ['"EB Garamond"', 'serif'],
       },
       colors: {
         border: "hsl(var(--border))",
