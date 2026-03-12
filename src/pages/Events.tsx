@@ -5,35 +5,6 @@ import { Search, Calendar, MapPin, User, Users, ExternalLink, Sparkles } from "l
 import { Link, useNavigate } from "react-router-dom";
 import { eventsData, type EventItem } from "@/data/eventsData";
 
-const eventsData: EventItem[] = [
-  // March 2026
-  { id: 1, date: "11 Mar (Wed)", month: "march", title: "FDP – AU CPDC & University of Western Australia", convenor: "Dean, CPDC", venue: "Convention Centre", description: "Faculty Development Program in collaboration with the University of Western Australia." },
-  { id: 2, date: "14 Mar (Sat)", month: "march", title: "Pharma Anveshan 2026 – Industry Academia Conclave", convenor: "Principal, AU College of Pharmaceutical Sciences", venue: "Convention Centre", description: "A landmark conclave bridging pharmaceutical industry and academic research." },
-  { id: 3, date: "17 Mar (Tue)", month: "march", title: "Classical Music Concert by Dept. of Music", convenor: "Prof. Saraswathi Vidyardhi, HoD Music", venue: "Y.V.S. Murthy Auditorium", description: "An evening of classical Indian music performed by the Department of Music." },
-  { id: 4, date: "18 Mar (Wed)", month: "march", title: "Institute Innovation Council Cluster Meet", convenor: "Prof. G.M.J. Raju, President IIC", venue: "Convention Centre", chiefGuest: "Hon'ble MP, Minister for HRD (Expected)", description: "Hosting the IIC Cluster Meet to foster innovation and entrepreneurship." },
-  { id: 5, date: "22–23 Mar", month: "march", title: "Two-Day National Workshop on Geotechnical Solutions", convenor: "HoD Civil Engineering", venue: "YVS Murthy Auditorium", description: "A national workshop exploring modern geotechnical engineering solutions." },
-  { id: 6, date: "22 Mar (Sun)", month: "march", title: "International Food Festival by Foreign Students of 40 Countries", convenor: "Prof. S. Paul Douglas, Dean International Affairs", venue: "Convention Centre", description: "A vibrant food festival showcasing cuisines from 40 countries by international students." },
-  { id: 7, date: "25 Mar (Wed)", month: "march", title: "91st & 92nd Combined Convocation", convenor: "Prof. S. Paul Douglas", venue: "Convention Centre", description: "The historic combined convocation ceremony celebrating academic achievement." },
-  { id: 8, date: "26 Mar (Thu)", month: "march", title: "International Cultural Festival by Foreign Students", convenor: "Dean, International Affairs", venue: "Convention Centre", description: "Cultural performances and exhibitions by international students." },
-  // April 2026
-  { id: 9, date: "6–8 Apr", month: "april", title: "Mega Cultural Event", convenor: "Prof. Asha Emmanuel Raju", venue: "Engg. College Grounds", description: "Three days of grand cultural performances, competitions, and celebrations." },
-  { id: 10, date: "9–10 Apr", month: "april", title: "Technology & Innovation Conclave", convenor: "Principal, AU College of Engineering", venue: "Convention Centre", description: "A conclave showcasing cutting-edge technology and innovation from AU." },
-  { id: 11, date: "18 Apr (Sat)", month: "april", title: "Affiliated Colleges Centenary Day Celebrations", convenor: "Dean, CDC", venue: "Engg. College Grounds", description: "Centenary celebrations with participation from 300+ affiliated colleges." },
-  { id: 12, date: "19 Apr (Sun)", month: "april", title: "College of Arts & Commerce + AU SIB", convenor: "Principal, AU College of A & C", venue: "Engg. College Grounds", description: "Special centenary programs by the College of Arts & Commerce and AU SIB." },
-  { id: 13, date: "21 Apr (Tue)", month: "april", title: "College of Science & Tech. & Pharmacy", convenor: "Principal, AU College of S & T", venue: "Engg. College Grounds", description: "Academic and cultural celebrations by Science, Technology & Pharmacy colleges." },
-  { id: 14, date: "22 Apr (Wed)", month: "april", title: "College of Engineering + AUCEW", convenor: "Principals, AUCE", venue: "Engg. College Grounds", description: "Engineering and women's engineering college centenary celebrations." },
-  { id: 15, date: "23 Apr (Thu)", month: "april", title: "College of Law + IASE", convenor: "Rector & Registrar", venue: "Engg. College Grounds", description: "Law college and IASE centenary commemorative events." },
-  { id: 16, date: "24–25 Apr", month: "april", title: "Preparation, Rehearsal & Final Arrangements", convenor: "—", venue: "Engg. College Grounds", description: "Final preparations and rehearsals for the grand centenary foundation day." },
-  { id: 17, date: "26 Apr (Sun)", month: "april", title: "Centenary Foundation Day Celebrations", convenor: "—", venue: "Engg. College Grounds", description: "The grand culmination — celebrating 100 glorious years of Andhra University." },
-  // Planned Events
-  { id: 18, date: "TBD", month: "planned", title: "Alumni Global Meet", convenor: "Dean, Alumni Relations", venue: "Convention Centre", description: "A global gathering of AU alumni to celebrate the centenary milestone." },
-  { id: 19, date: "TBD", month: "planned", title: "Research Excellence Symposium", convenor: "Director, Research & Development", venue: "Convention Centre", description: "Showcasing 100 years of research excellence and future directions." },
-  { id: 20, date: "TBD", month: "planned", title: "Sports Tournament – Centenary Cup", convenor: "Director of Physical Education", venue: "AU Sports Complex", description: "Inter-college sports tournament commemorating the centenary." },
-  { id: 21, date: "TBD", month: "planned", title: "Heritage Walk & Campus History Exhibition", convenor: "Department of History", venue: "AU Campus", description: "A guided heritage walk through AU's historic campus and exhibition." },
-  { id: 22, date: "TBD", month: "planned", title: "Science & Technology Expo", convenor: "Dean, Faculty of Science", venue: "Convention Centre", description: "Exhibition of scientific innovations and technological advancements from AU." },
-  { id: 23, date: "TBD", month: "planned", title: "Literary & Debate Festival", convenor: "Department of English", venue: "YVS Murthy Auditorium", description: "Literary competitions, debates, and cultural discussions." },
-  { id: 24, date: "TBD", month: "planned", title: "Centenary Art & Photography Exhibition", convenor: "Department of Fine Arts", venue: "AU Art Gallery", description: "A curated exhibition of art and photography celebrating AU's 100-year journey." },
-];
 
 const filterTabs = [
   { key: "all", label: "All Events" },
