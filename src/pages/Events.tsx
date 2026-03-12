@@ -203,7 +203,7 @@ const Events = () => {
             </div>
 
             {/* Search */}
-            <motion.div className="relative flex-1 max-w-xs" whileFocusWithin={{ scale: 1.02 }}>
+            <div className="relative flex-1 max-w-xs">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" size={16} />
               <input
                 type="text"
