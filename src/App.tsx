@@ -8,6 +8,7 @@ import Footer from "@/components/Footer";
 import Index from "./pages/Index";
 import AboutFest from "./pages/AboutFest";
 import Events from "./pages/Events";
+import EventDetails from "./pages/EventDetails";
 import OrganizingTeam from "./pages/OrganizingTeam";
 import Registration from "./pages/Registration";
 import Contact from "./pages/Contact";
