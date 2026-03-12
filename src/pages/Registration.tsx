@@ -115,56 +115,65 @@ const Registration = () => {
         </div>
       </section>
 
-      {/* Google Form Section */}
+      {/* Registration CTA Section */}
       <section className="py-20 bg-background">
         <div className="container mx-auto px-4 max-w-4xl">
-
           <SectionTitle
             title="Official Registration Form"
-            subtitle="Fill the Google Form to participate in the Andhra University Centenary Celebrations"
+            subtitle="Click the button below to fill the official Google Form and participate in the celebrations"
           />
 
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
-            className="rounded-2xl overflow-hidden border border-gold/20 shadow-xl"
+            className="glass-card rounded-2xl p-10 text-center border border-gold/30 shadow-2xl bg-gradient-to-br from-navy/5 to-gold/5"
           >
+            <div className="mb-8">
+              <div className="w-20 h-20 bg-gold/10 rounded-full flex items-center justify-center mx-auto mb-6">
+                <FileText className="text-gold" size={40} />
+              </div>
+              <h3 className="font-display text-2xl text-navy font-bold mb-4">
+                Andhra University Centenary Registration
+              </h3>
+              <p className="text-muted-foreground font-body max-w-lg mx-auto mb-8">
+                The registration process is hosted on Google Forms. Please ensure you have your required documents ready before proceeding with the application.
+              </p>
+            </div>
 
-            <iframe
-              src="https://forms.gle/qsUkfoFCzar29uXR9"
-              width="100%"
-              height="900"
-              frameBorder="0"
-              marginHeight={0}
-              marginWidth={0}
-              className="w-full"
-            >
-              Loading…
-            </iframe>
-
-          </motion.div>
-
-          {/* Backup Button */}
-          <div className="text-center mt-8">
-
-            <a
+            <motion.a
               href="https://forms.gle/qsUkfoFCzar29uXR9"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-block px-8 py-3 bg-navy text-gold font-semibold rounded-full hover:bg-navy-light transition-colors"
+              whileHover={{ scale: 1.05, boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1)" }}
+              whileTap={{ scale: 0.95 }}
+              className="inline-flex items-center gap-3 px-10 py-4 bg-navy text-gold font-body text-lg font-bold rounded-full hover:bg-navy-light transition-all shadow-lg"
             >
-              Open Form in New Tab
-            </a>
+              Start Registration Process
+              <Download size={20} className="rotate-[-90deg]" />
+            </motion.a>
 
-          </div>
+            <div className="mt-8 flex flex-wrap justify-center gap-6 text-sm text-muted-foreground">
+              <span className="flex items-center gap-2">
+                <div className="w-1.5 h-1.5 rounded-full bg-gold"></div>
+                Secure Form
+              </span>
+              <span className="flex items-center gap-2">
+                <div className="w-1.5 h-1.5 rounded-full bg-gold"></div>
+                Document Upload Required
+              </span>
+              <span className="flex items-center gap-2">
+                <div className="w-1.5 h-1.5 rounded-full bg-gold"></div>
+                Verification within 48h
+              </span>
+            </div>
+          </motion.div>
 
-          <p className="text-center text-xs text-muted-foreground font-body mt-8">
+          <p className="text-center text-xs text-muted-foreground font-body mt-12 max-w-2xl mx-auto">
             Note: Only students from Andhra University affiliated colleges are
-            eligible to register. Uploaded documents will be verified by the
+            eligible to register. Your registration is subject to document verification by the
             organizing committee.
           </p>
-
         </div>
       </section>
 
