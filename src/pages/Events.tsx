@@ -241,7 +241,7 @@ const Events = () => {
                         boxShadow: "0 12px 40px hsl(43 72% 52% / 0.3)",
                         borderColor: "hsl(43 72% 52% / 0.5)",
                       }}
-                      onClick={() => setSelectedEvent(evt)}
+                      onClick={() => navigate(`/events/${evt.slug}`)}
                       className="cursor-pointer rounded-xl border border-gold/15 bg-card p-6 flex flex-col gap-3 transition-all group relative overflow-hidden"
                     >
                       {/* Subtle hover lotus bloom */}
