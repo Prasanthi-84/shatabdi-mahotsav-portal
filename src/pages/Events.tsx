@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import SectionTitle from "@/components/SectionTitle";
 import { Search, Calendar, MapPin, User, Users, ExternalLink, Sparkles } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
-import { eventsData, type EventItem } from "@/data/eventsData";
+import { eventsData } from "@/data/eventsData";
 
 
 const filterTabs = [
