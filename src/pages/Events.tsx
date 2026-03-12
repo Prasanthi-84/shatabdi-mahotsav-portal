@@ -5,311 +5,6 @@ import {
 } from "lucide-react";
 import { Link } from "react-router-dom";
 import SectionTitle from "@/components/SectionTitle";
-<<<<<<< Updated upstream
-import { Search, Calendar, MapPin, User, Users, ExternalLink, Sparkles } from "lucide-react";
-import { Link, useNavigate } from "react-router-dom";
-import { eventsData } from "@/data/eventsData";
-
-
-const filterTabs = [
-  { key: "all", label: "All Events" },
-  { key: "march", label: "March 2026" },
-  { key: "april", label: "April 2026" },
-  { key: "planned", label: "Planned Events" },
-];
-
-// Lotus SVG component for reuse
-const LotusSVG = ({ size = 64, className = "" }: { size?: number; className?: string }) => (
-  <svg width={size} height={size} viewBox="0 0 64 64" fill="none" className={className}>
-    <ellipse cx="32" cy="40" rx="18" ry="22" fill="hsl(43 72% 52% / 0.4)" />
-    <ellipse cx="32" cy="36" rx="12" ry="16" fill="hsl(43 60% 70% / 0.3)" />
-    <ellipse cx="32" cy="32" rx="6" ry="10" fill="hsl(40 30% 95% / 0.5)" />
-  </svg>
-);
-
-// Floating lotus particle for hero/modal backgrounds
-const FloatingLotus = ({ delay, x, size, duration = 20 }: { delay: number; x: string; size: number; duration?: number }) => (
-  <motion.div
-    className="absolute pointer-events-none"
-    style={{ left: x, top: "-8%" }}
-    animate={{
-      y: ["0vh", "115vh"],
-      rotate: [0, 180 + Math.random() * 180],
-      opacity: [0, 0.08, 0.12, 0.06, 0],
-      scale: [0.8, 1, 0.9, 0.7],
-    }}
-    transition={{ duration: duration, repeat: Infinity, delay, ease: "linear" }}
-  >
-    <LotusSVG size={size} />
-  </motion.div>
-);
-
-// Corner lotus accent for parchment containers
-const CornerLotus = ({ position }: { position: string }) => (
-  <div className={`absolute ${position} opacity-[0.08] pointer-events-none`}>
-    <LotusSVG size={44} />
-  </div>
-);
-
-const Events = () => {
-  const navigate = useNavigate();
-  const [activeTab, setActiveTab] = useState("all");
-  const [search, setSearch] = useState("");
-
-  const filteredEvents = useMemo(() => {
-    return eventsData.filter((e) => {
-      const matchTab = activeTab === "all" || e.month === activeTab;
-      const matchSearch =
-        !search ||
-        e.title.toLowerCase().includes(search.toLowerCase()) ||
-        e.venue.toLowerCase().includes(search.toLowerCase());
-      return matchTab && matchSearch;
-    });
-  }, [activeTab, search]);
-
-  return (
-    <motion.div
-      className="pt-20"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.6 }}
-    >
-      {/* ═══════════ HERO SECTION ═══════════ */}
-      <section className="relative py-28 md:py-36 bg-navy overflow-hidden">
-        {/* Multi-layer floating lotuses */}
-        <FloatingLotus delay={0} x="8%" size={56} duration={22} />
-        <FloatingLotus delay={3} x="22%" size={38} duration={26} />
-        <FloatingLotus delay={5} x="42%" size={62} duration={19} />
-        <FloatingLotus delay={7} x="65%" size={44} duration={24} />
-        <FloatingLotus delay={2} x="80%" size={50} duration={21} />
-        <FloatingLotus delay={9} x="92%" size={34} duration={28} />
-        <FloatingLotus delay={4} x="50%" size={28} duration={30} />
-
-        {/* Gradient overlay */}
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-primary/30 pointer-events-none" />
-
-        <div className="container mx-auto px-4 relative z-10">
-          <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
-            className="text-center"
-          >
-            <h1
-              className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-wide text-gold mb-4"
-              style={{ fontFamily: "'Cinzel', 'Playfair Display', serif" }}
-            >
-              Events
-            </h1>
-            <motion.div
-              className="gold-divider w-40 mx-auto mb-6"
-              initial={{ scaleX: 0 }}
-              animate={{ scaleX: 1 }}
-              transition={{ delay: 0.5, duration: 0.8, ease: "easeOut" }}
-              style={{ transformOrigin: "center" }}
-            />
-            <h2 className="font-display text-xl md:text-2xl text-gold-light/90 font-medium tracking-wider mb-3">
-              Shatabdi Mahotsav 2026
-            </h2>
-            <p className="font-body text-sm md:text-base text-gold-light/60 tracking-widest">
-              March & April 2026 • Celebrating 100 Years of Excellence
-            </p>
-          </motion.div>
-
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.9, duration: 0.6 }}
-            className="text-center mt-6"
-            style={{ fontFamily: "'Cinzel', serif" }}
-          >
-            <span className="text-lg md:text-xl tracking-[0.5em] text-gold/40 font-medium">
-              1926 — 2026
-            </span>
-          </motion.p>
-        </div>
-      </section>
-
-      {/* ═══════════ STICKY FILTERS ═══════════ */}
-      <motion.div
-        className="sticky top-20 z-30 bg-cream/95 backdrop-blur-md border-b border-gold/20 shadow-sm"
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.3, duration: 0.5 }}
-      >
-        <div className="container mx-auto px-4 py-4">
-          <div className="flex flex-col md:flex-row items-center gap-4">
-            {/* Tabs */}
-            <div className="flex flex-wrap gap-2">
-              {filterTabs.map((tab) => (
-                <motion.button
-                  key={tab.key}
-                  onClick={() => setActiveTab(tab.key)}
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.97 }}
-                  className={`relative px-5 py-2.5 rounded-full text-sm font-body font-semibold transition-all duration-300 ${
-                    activeTab === tab.key
-                      ? "bg-navy text-gold shadow-gold"
-                      : "bg-background text-muted-foreground hover:bg-accent/10 border border-gold/20"
-                  }`}
-                  style={activeTab === tab.key ? { fontFamily: "'Cinzel', serif", letterSpacing: "0.05em" } : {}}
-                >
-                  {tab.label}
-                  {activeTab === tab.key && (
-                    <motion.div
-                      className="absolute -bottom-0.5 left-1/2 h-0.5 bg-gold rounded-full"
-                      layoutId="activeTab"
-                      style={{ width: "60%", x: "-50%" }}
-                      transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                    />
-                  )}
-                </motion.button>
-              ))}
-            </div>
-
-            {/* Search */}
-            <div className="relative flex-1 max-w-xs">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" size={16} />
-              <input
-                type="text"
-                placeholder="Search events or venues..."
-                value={search}
-                onChange={(e) => setSearch(e.target.value)}
-                className="w-full pl-9 pr-4 py-2.5 rounded-full border border-gold/20 bg-background text-sm font-body focus:outline-none focus:ring-2 focus:ring-gold/40 focus:shadow-gold transition-shadow text-foreground"
-              />
-            </div>
-
-            {/* Register Button */}
-            <motion.div whileHover={{ scale: 1.06, y: -2 }} whileTap={{ scale: 0.95 }}>
-              <Link
-                to="/registration"
-                className="inline-flex items-center gap-2 px-7 py-2.5 rounded-full bg-navy text-gold font-body font-bold text-sm hover:bg-navy-light transition-colors shadow-gold whitespace-nowrap"
-                style={{ fontFamily: "'Cinzel', serif", letterSpacing: "0.08em" }}
-              >
-                <Sparkles size={14} />
-                Register Now
-              </Link>
-            </motion.div>
-          </div>
-        </div>
-      </motion.div>
-
-      {/* ═══════════ EVENTS GRID ═══════════ */}
-      <section className="py-20 bg-cream">
-        <div className="container mx-auto px-4">
-          {/* Parchment container */}
-          <motion.div
-            className="relative max-w-6xl mx-auto p-6 md:p-12 rounded-2xl border border-gold/20 bg-background/80 shadow-gold"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-          >
-            {/* Corner lotus accents */}
-            <CornerLotus position="top-2 left-2" />
-            <CornerLotus position="top-2 right-2 rotate-90" />
-            <CornerLotus position="bottom-2 left-2 -rotate-90" />
-            <CornerLotus position="bottom-2 right-2 rotate-180" />
-
-            {/* Section header inside parchment */}
-            <div className="text-center mb-10">
-              <h2
-                className="text-2xl md:text-3xl font-bold text-navy tracking-wide"
-                style={{ fontFamily: "'Cinzel', 'Playfair Display', serif" }}
-              >
-                Centenary Celebration Events
-              </h2>
-              <div className="gold-divider w-24 mx-auto mt-4" />
-              <p className="text-sm text-muted-foreground font-body mt-3">
-                {filteredEvents.length} event{filteredEvents.length !== 1 ? "s" : ""} found
-              </p>
-            </div>
-
-            {filteredEvents.length === 0 ? (
-              <p className="text-center text-muted-foreground font-body py-16 text-lg">
-                No events match your search.
-              </p>
-            ) : (
-              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-                <AnimatePresence mode="popLayout">
-                  {filteredEvents.map((evt, i) => (
-                    <motion.div
-                      key={evt.id}
-                      layout
-                      initial={{ opacity: 0, y: 40, rotate: -1 }}
-                      whileInView={{ opacity: 1, y: 0, rotate: 0 }}
-                      exit={{ opacity: 0, y: -20, scale: 0.95 }}
-                      viewport={{ once: true, margin: "-30px" }}
-                      transition={{ delay: (i % 6) * 0.07, duration: 0.55, ease: "easeOut" }}
-                      whileHover={{
-                        y: -12,
-                        boxShadow: "0 12px 40px hsl(43 72% 52% / 0.3)",
-                        borderColor: "hsl(43 72% 52% / 0.5)",
-                      }}
-                      onClick={() => navigate(`/events/${evt.slug}`)}
-                      className="cursor-pointer rounded-xl border border-gold/15 bg-card p-6 flex flex-col gap-3 transition-all group relative overflow-hidden"
-                    >
-                      {/* Subtle hover lotus bloom */}
-                      <motion.div
-                        className="absolute -top-3 -right-3 opacity-0 group-hover:opacity-[0.06] transition-opacity duration-500 pointer-events-none"
-                      >
-                        <LotusSVG size={80} />
-                      </motion.div>
-
-                      {/* Date */}
-                      <motion.span
-                        className="text-xl font-bold text-gold tracking-wider"
-                        style={{ fontFamily: "'Cinzel', serif" }}
-                        whileHover={{ scale: 1.05 }}
-                      >
-                        {evt.date}
-                      </motion.span>
-
-                      {/* Title */}
-                      <h3 className="font-display text-lg font-bold text-navy leading-snug group-hover:text-navy-light transition-colors">
-                        {evt.title}
-                      </h3>
-
-                      {/* Meta */}
-                      <div className="space-y-1.5 text-xs font-body text-muted-foreground">
-                        <p className="flex items-center gap-1.5">
-                          <User size={12} className="text-gold shrink-0" />
-                          <span className="truncate">{evt.convenor}</span>
-                        </p>
-                        <p className="flex items-center gap-1.5">
-                          <MapPin size={12} className="text-gold shrink-0" />
-                          {evt.venue}
-                        </p>
-                        {evt.chiefGuest && (
-                          <p className="flex items-center gap-1.5">
-                            <Users size={12} className="text-gold shrink-0" />
-                            {evt.chiefGuest}
-                          </p>
-                        )}
-                      </div>
-
-                      {/* Description */}
-                      <p className="text-xs font-body text-muted-foreground line-clamp-2 mt-auto leading-relaxed">
-                        {evt.description}
-                      </p>
-
-                      {/* Learn More */}
-                      <span className="inline-flex items-center gap-1.5 text-xs font-body font-bold text-gold mt-2 group-hover:tracking-wider transition-all relative">
-                        Learn More
-                        <ExternalLink size={12} />
-                        <motion.span
-                          className="absolute -bottom-0.5 left-0 h-px bg-gold"
-                          initial={{ width: 0 }}
-                          whileInView={{ width: "100%" }}
-                          transition={{ delay: 0.3, duration: 0.4 }}
-                        />
-                      </span>
-                    </motion.div>
-                  ))}
-                </AnimatePresence>
-              </div>
-            )}
-=======
 
 // --- Types ---
 export interface EventData {
@@ -512,10 +207,10 @@ const FloatingDots = () => (
 const EventCard = ({ event }: { event: EventData }) => {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      whileHover={{ y: -8, boxShadow: "0 15px 40px rgba(201, 163, 71, 0.2)" }}
+      initial={{ opacity: 0, y: 40, x: 20 }}
+      whileInView={{ opacity: 1, y: 0, x: 0 }}
+      viewport={{ once: true, margin: "-50px" }}
+      whileHover={{ y: -12, boxShadow: "0 20px 50px rgba(201, 163, 71, 0.25)" }}
       className="group bg-white border border-gold/10 rounded-2xl p-8 h-full flex flex-col transition-all duration-300 shadow-sm relative overflow-hidden"
     >
       <div className="flex-grow z-10">
@@ -621,26 +316,16 @@ const Events = () => {
       <div className="sticky top-20 z-40 bg-[#f8f5ee]/95 backdrop-blur-md border-b border-gold/10 shadow-sm py-4">
         <div className="container mx-auto px-4">
           <div className="flex flex-col lg:flex-row items-center justify-between gap-6">
-            {/* Tabs */}
-            <div className="flex items-center gap-1 bg-navy/5 p-1 rounded-full overflow-x-auto max-w-full hide-scrollbar relative">
+            <div className="flex items-center gap-1 bg-navy/5 p-1 rounded-full overflow-x-auto max-w-full">
               {TABS.map((tab) => (
                 <button
                   key={tab}
                   onClick={() => setActiveTab(tab)}
-                  className={`relative px-8 py-2.5 rounded-full text-[13px] font-bold transition-all duration-300 whitespace-nowrap z-10 ${
-                    activeTab === tab 
-                      ? "text-gold" 
-                      : "text-navy/40 hover:text-navy"
+                  className={`px-8 py-2.5 rounded-full text-[13px] font-bold transition-all whitespace-nowrap ${
+                    activeTab === tab ? "bg-navy text-gold shadow-lg" : "text-navy/40 hover:text-navy hover:bg-gold/10"
                   }`}
                 >
                   {tab === "All" ? "All Events" : tab}
-                  {activeTab === tab && (
-                    <motion.div 
-                      layoutId="activeEventTab"
-                      className="absolute inset-0 bg-navy rounded-full -z-10 shadow-lg ring-1 ring-gold/20"
-                      transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
-                    />
-                  )}
                 </button>
               ))}
             </div>
@@ -673,18 +358,15 @@ const Events = () => {
             subtitle="Explore our centenary events across campuses, featuring global conclaves, cultural festivals, and departmental celebrations."
           />
 
-          <motion.div 
-            layout
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 xl:gap-10"
-          >
+          <motion.div layout className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 xl:gap-10">
             <AnimatePresence mode="popLayout">
               {filteredEvents.map((event, index) => (
-                <motion.div
-                  key={event.id}
-                  layout
-                  initial={{ opacity: 0, x: -20, y: 20 }}
-                  animate={{ opacity: 1, x: 0, y: 0 }}
-                  exit={{ opacity: 0, scale: 0.9, y: 10 }}
+                <motion.div 
+                  key={event.id} 
+                  layout 
+                  initial={{ opacity: 0, x: -30, y: 20 }} 
+                  animate={{ opacity: 1, x: 0, y: 0 }} 
+                  exit={{ opacity: 0, scale: 0.95 }} 
                   transition={{ 
                     type: "spring",
                     stiffness: 100,
@@ -692,23 +374,16 @@ const Events = () => {
                     delay: index * 0.05 
                   }}
                 >
-                  <EventCard 
-                    event={event} 
-                  />
+                  <EventCard event={event} />
                 </motion.div>
               ))}
             </AnimatePresence>
->>>>>>> Stashed changes
           </motion.div>
         </div>
       </section>
 
-<<<<<<< Updated upstream
-    </motion.div>
-=======
       <div className="h-40 bg-gradient-to-t from-gold/10 to-transparent pointer-events-none" />
     </div>
->>>>>>> Stashed changes
   );
 };
 

@@ -3,80 +3,7 @@ import { motion } from "framer-motion";
 import { 
   Calendar, MapPin, User, Download, Globe, Clock, ArrowLeft, Phone, Mail, Info
 } from "lucide-react";
-
-// --- Types ---
-interface EventDetailData {
-  id: number;
-  date: string;
-  title: string;
-  convenor: string;
-  venue: string;
-  description: string;
-  time: string;
-  theme?: string;
-}
-
-// --- Data ---
-const eventsData: EventDetailData[] = [
-  { 
-    id: 12, 
-    date: "14 Mar 2026 (Sat)", 
-    title: "Pharma Anveshan 2026 – Industry Academia Conclave", 
-    convenor: "Principal, AU College of Pharmaceutical Sciences", 
-    venue: "A.U. Convention Centre", 
-    description: "Industry Academia Conclave at the AU College of Pharmaceutical Sciences. Theme: Future Pharma Ecosystem: Fostering Synergy Among Academia, Industry, Research, Regulatory and Practice. Full day event with Inaugural Ceremony, Keynote Address by Dr. Veer Raju P, Address by Sri K. Raja Bhanu, Panel Discussion & Pharma Ideathon. Free registration for all eligible candidates.", 
-    time: "09:30 AM onwards" 
-  },
-  { 
-    id: 13, 
-    date: "17 Mar 2026 (Tue)", 
-    title: "Classical Music Concert by Dept. of Music", 
-    convenor: "Prof. K. Saraswathi Vidyardhi, HoD Music", 
-    venue: "Y.V.S. Murthy Auditorium", 
-    description: "An evening of serene classical melodies celebrating our cultural heritage and musical legacy. Featuring performances by distinguished faculty and guest artists of international repute.", 
-    time: "4:00 PM onwards" 
-  },
-  { 
-    id: 19, 
-    date: "6-8 Apr 2026", 
-    title: "Grand Cultural Programme", 
-    convenor: "Prof. K. Saraswati Vidyardhi", 
-    venue: "AU Convention Centre", 
-    description: "Grand Cultural Programme as part of Andhra University Centenary Celebrations. A spectacular showcase of heritage music, classical dance, and drama. Chief Patron: Vice-Chancellor Prof. G. P. Raja Sekhar. Guest of Honor: Rector Prof. Pulipati King and Registrar Prof. K. Rambabu. All faculty, students, alumni and guests are warmly invited to witness this celebration of artistic excellence.", 
-    time: "4:00 PM onwards" 
-  },
-  { id: 14, date: "18 Mar (Wed)", title: "IIC Cluster Meet", convenor: "Prof. G.M.J. Raju", venue: "Convention Centre", description: "Focusing on innovation and start-up culture across local university clusters. Encouraging young entrepreneurs to pitch revolutionary ideas.", time: "10:00 AM" },
-  { id: 15, date: "22-23 Mar", title: "Geotechnical Solutions Workshop", convenor: "HoD Civil Engineering", venue: "YVS Murthy Auditorium", description: "Advancing geotechnical engineering practices for modern infrastructure challenges. Expert lectures and hands-on case study analysis.", time: "09:00 AM - 5:00 PM" },
-  { id: 16, date: "22 Mar (Sun)", title: "International Food Festival", convenor: "Prof. S. Paul Douglas", venue: "Convention Centre", description: "A culinary journey with dishes from 40+ countries prepared by international students studying at Andhra University.", time: "11:00 AM onwards" },
-  { id: 17, date: "25 Mar (Wed)", title: "Combined Convocation", convenor: "Prof. S. Paul Douglas", venue: "Convention Centre", description: "Celebrating the achievements of graduates in a combined 91st & 92nd convocation. A historic moment for centenary scholars.", time: "10:30 AM" },
-  { id: 18, date: "26 Mar (Thu)", title: "International Cultural Festival", convenor: "Dean, International Affairs", venue: "Convention Centre", description: "A showcase of worldwide cultural diversity through performance and art by our global student community.", time: "5:00 PM onwards" },
-  { id: 20, date: "9-10 Apr", title: "Tech Innovation Conclave", convenor: "Principal, AU College of Engg.", venue: "Convention Centre", description: "Exploring the frontier of technology and industry 5.0 with academic experts and industry leaders.", time: "10:00 AM onwards" },
-  { id: 21, date: "18 Apr (Sat)", title: "Affiliated Colleges Day", convenor: "Dean, CDC", venue: "Engg. College Grounds", description: "A special day to honor the contribution of our affiliated college network to AU's 100-year legacy.", time: "全天" },
-  { id: 22, date: "19 Apr (Sun)", title: "Arts & Commerce Centenary", convenor: "Principal, AU College of A & C", venue: "Engg. College Grounds", description: "Celebrating the legacy of the College of Arts & Commerce in our 100th year with alumni and current students.", time: "9:00 AM onwards" },
-  { id: 23, date: "21 Apr (Tue)", title: "Science & Pharmacy Day", convenor: "Principal, AU College of S & T", venue: "Engg. College Grounds", description: "Honoring the scientific and pharmacological breakthroughs nurtured at AU over the past century.", time: "10:00 AM" },
-  { id: 24, date: "22 Apr (Wed)", title: "Engineering Centenary Day", convenor: "Principals, AUCE & AUCEW", venue: "Engg. College Grounds", description: "Focusing on the engineering excellence that has defined AU for a century. Innovation awards and tech exhibition.", time: "09:30 AM" },
-  { id: 25, date: "23 Apr (Thu)", title: "Law & IASE Celebration", convenor: "University Administration", venue: "Engg. College Grounds", description: "Marking 100 years of the College of Law and educational advancements at IASE with senior legal experts.", time: "11:00 AM" },
-  { id: 26, date: "24-25 Apr", title: "Foundation Rehearsals", convenor: "Organizing Committee", venue: "Engg. College Grounds", description: "Grand rehearsals for the historic Centenary Foundation Day ceremony to ensure a flawless presentation.", time: "Morning sessions" },
-  { id: 27, date: "26 Apr 2026 (Sun)", title: "Centenary Foundation Day", convenor: "University Administration", venue: "Engg. College Grounds", description: "The main historic celebration marking 100 years since the inception of Andhra University. Presence of national dignitaries.", time: "10:00 AM onwards" },
-  { id: 28, date: "Planned", title: "Centenary Marathon", convenor: "Sports Coordinator", venue: "RK Beach", description: "Running for the legacy of AU across the coast of Visakhapatnam. Open to students, alumni, and citizens.", time: "06:00 AM" },
-  { id: 29, date: "Planned", title: "Heritage Photo Walk", convenor: "Dept of Journalism", venue: "Main Campus", description: "Discovering the historic architecture and hidden stories of AU through the camera lens.", time: "TBA" },
-  { id: 30, date: "Planned", title: "Science Expo 2026", convenor: "Science College Faculty", venue: "Science College Grounds", description: "Showcasing groundbreaking student projects and research discoveries for the public and schools.", time: "09:00 AM - 4:00 PM" },
-  { id: 31, date: "Planned", title: "Alumni Global Meet", convenor: "AU Alumni Association", venue: "Convention Centre", description: "Welcoming back our distinguished alumni from across the world to discuss the next century's vision.", time: "TBA" },
-  { id: 32, date: "Planned", title: "Centenary Souvenir Launch", convenor: "Senate Committee", venue: "Senate Hall", description: "Unveiling the official centenary photo book and souvenir volume documenting 100 years of AU.", time: "TBA" },
-  { id: 33, date: "Planned", title: "Centenary Time Capsule", convenor: "Registrar's Office", venue: "Administration Block", description: "Preserving the architectural and intellectual essence of 2026 for the scholars of 2126.", time: "TBA" },
-  { id: 34, date: "Planned", title: "Mega Job Fair", convenor: "Placement Cell", venue: "Engg. College Grounds", description: "Connecting our students with top tier global opportunities as part of the centenary year celebrations.", time: "09:00 AM" },
-  { id: 35, date: "Mar 2026", title: "Youth Festival", convenor: "Student Welfare Dean", venue: "Gymnasium Grounds", description: "A vibrant competition of talent, art, and youth spirit across all university departments.", time: "TBA" },
-  { id: 36, date: "Mar 2026", title: "Startup Pitch Day", convenor: "Innovation Cell", venue: "Incubation Center", description: "Pitching revolutionary ideas to a panel of venture capitalists and industry experts.", time: "10:00 AM" },
-  { id: 37, date: "Apr 2026", title: "Women's Conclave", convenor: "Director, Women's Studies", venue: "AUCEW Auditorium", description: "Celebrating the role of women in leadership, science, and arts over AU's 100-year history.", time: "TBA" },
-  { id: 38, date: "Planned", title: "Centenary Cricket Cup", convenor: "Director of Physical Ed.", venue: "Gold Field Ground", description: "An inter-departmental tournament celebrating a century of sportsmanship and university spirit.", time: "TBA" },
-  { id: 39, date: "Planned", title: "Art Gallery Opening", convenor: "Head, Fine Arts", venue: "Fine Arts Museum", description: "Showcasing a century of student art, rare artifacts, and new visual expressions of AU.", time: "TBA" },
-  { id: 40, date: "Mar 2026", title: "Green Campus Initiative", convenor: "Environmental Science Dept", venue: "Campus Wide", description: "Planting a 'Centenary Forest' to promote sustainability as we move into the next century.", time: "TBA" },
-  { id: 41, date: "Apr 2026", title: "Centenary Book Fair", convenor: "Chief Librarian", venue: "Campus Library", description: "A week-long celebration of literature and knowledge with publishers from across India.", time: "TBA" },
-  { id: 42, date: "Planned", title: "Digital Heritage Portal", convenor: "IT Infrastructure Team", venue: "Online Launch", description: "Unveiling the comprehensive digital archive of AU's century-long journey and major achievements.", time: "TBA" },
-  { id: 43, date: "Planned", title: "Centenary Film Fest", convenor: "Journalism Dept", venue: "Convocation Hall", description: "Screening documentaries and historic films about the evolution and impact of Andhra University.", time: "TBA" },
-  { id: 44, date: "Mar 2026", title: "Poetry Symposium", convenor: "Telugu Dept Head", venue: "Telugu Dept Hall", description: "A gathering of regional and national poets celebrating the literary legacy of our university.", time: "TBA" },
-  { id: 45, date: "Apr 2026", title: "Centenary Gala Dinner", convenor: "University Board", venue: "Beachfront Grounds", description: "A formal dinner to honor faculty, staff, and distinguished guests of the centenary year.", time: "TBA" }
-];
+import { eventsData } from "@/data/eventsData";
 
 // --- Sub-components ---
 const LotusSVG = ({ className }: { className?: string }) => (
@@ -153,7 +80,7 @@ const EventDetail = () => {
                     This event is designed to foster a spirit of academic inquiry and cultural celebration among our students, faculty, and the global alumni network.
                   </p>
                   <p>
-                    {event.description}
+                    {event.about || event.description}
                   </p>
                   <div className="pt-8 border-t border-gold/5 flex flex-col md:flex-row gap-8">
                      <div className="space-y-2">
@@ -185,15 +112,17 @@ const EventDetail = () => {
                     </div>
                   </div>
                   
-                  <div className="flex gap-5 group">
-                    <div className="w-12 h-12 rounded-2xl bg-white/10 flex items-center justify-center shrink-0 group-hover:bg-gold transition-colors duration-500">
-                      <Clock className="text-gold group-hover:text-navy transition-colors" size={24} />
+                  {event.time && (
+                    <div className="flex gap-5 group">
+                      <div className="w-12 h-12 rounded-2xl bg-white/10 flex items-center justify-center shrink-0 group-hover:bg-gold transition-colors duration-500">
+                        <Clock className="text-gold group-hover:text-navy transition-colors" size={24} />
+                      </div>
+                      <div>
+                        <p className="text-[10px] text-white/40 uppercase font-black tracking-widest mb-1 font-body">Scheduled Time</p>
+                        <p className="font-display text-lg font-bold text-white leading-snug">{event.time}</p>
+                      </div>
                     </div>
-                    <div>
-                      <p className="text-[10px] text-white/40 uppercase font-black tracking-widest mb-1 font-body">Scheduled Time</p>
-                      <p className="font-display text-lg font-bold text-white leading-snug">{event.time}</p>
-                    </div>
-                  </div>
+                  )}
 
                   <div className="flex gap-5 group">
                     <div className="w-12 h-12 rounded-2xl bg-white/10 flex items-center justify-center shrink-0 group-hover:bg-gold transition-colors duration-500">
@@ -217,9 +146,9 @@ const EventDetail = () => {
                 </div>
 
                 <div className="pt-8 border-t border-white/10 space-y-4 sm:space-y-6 relative z-10">
-                  <a href="/registration" className="flex items-center justify-center gap-3 w-full py-5 bg-gold text-[#0A1F44] font-black rounded-2xl hover:bg-white hover:scale-[1.02] transition-all shadow-xl text-xs sm:text-sm uppercase tracking-widest">
+                  <Link to="/registration" className="flex items-center justify-center gap-3 w-full py-5 bg-gold text-[#0A1F44] font-black rounded-2xl hover:bg-white hover:scale-[1.02] transition-all shadow-xl text-xs sm:text-sm uppercase tracking-widest">
                     <Globe size={20} /> REGISTER FOR THIS EVENT
-                  </a>
+                  </Link>
                   <button className="flex items-center justify-center gap-3 w-full py-4 border-2 border-gold text-gold font-black rounded-2xl hover:bg-gold hover:text-navy transition-all text-xs sm:text-sm uppercase tracking-widest">
                     <Download size={20} /> DOWNLOAD DETAILS
                   </button>
